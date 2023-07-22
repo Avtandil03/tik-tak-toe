@@ -11,7 +11,7 @@ export default function GameTitle() {
         <ArrowLeftIcon/>
         <p className='pl-2 text-xs'>На главную</p>
       </Link>
-      <h1 className='text-black text-4xl'>Крестики нолики</h1>
+      <h1 className='text-4xl'>Крестики нолики</h1>
       <div className='text-xs text-slate-400 flex items-center gap-3'>
         <StarIcon/> 
         <div className='flex items-center gap-2'>
