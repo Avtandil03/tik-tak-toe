@@ -1,15 +1,12 @@
-import {useState} from 'react'
 import clsx from 'clsx'
 import React from 'react'
 import { UiButton } from '../ui'
 import { GameSymbol } from './game-symbol'
-import { useGameState } from './use-game-state'
 
 
 
-export function GameField({className, playersCount}) {
+export function GameField({className, cells, currMove, nextMove, handleCellClick}) {
 
-  const [{cells, currMove, nextMove, handleCellClick}] = useGameState(playersCount)
 
   const actions = (
     <>
