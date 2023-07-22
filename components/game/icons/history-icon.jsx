@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function HistoryIcon() {
+export function HistoryIcon() {
   return (
     <svg
       width="12"

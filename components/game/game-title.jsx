@@ -1,10 +1,10 @@
 import Link from "next/link";
-import ArrowLeftIcon from "./icons/arrow-left-icon";
-import StarIcon from "./icons/star-icon";
-import UserIcon from "./icons/user-icon";
-import HistoryIcon from "./icons/history-icon";
+import {ArrowLeftIcon} from "./icons/arrow-left-icon";
+import {StarIcon} from "./icons/star-icon";
+import {UserIcon} from "./icons/user-icon";
+import {HistoryIcon} from "./icons/history-icon";
 
-export default function GameTitle() {
+export function GameTitle() {
   return (
     <div className='pl-2 '>
       <Link href='#' className='text-teal-600 hover:text-teal-500 transition-colors flex items-center'>

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
 
-export default function ZeroIcon({ className}) {
+export function ZeroIcon({ className}) {
   return (
     <svg
       width="12"

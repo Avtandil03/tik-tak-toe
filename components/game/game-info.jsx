@@ -1,9 +1,9 @@
 import clsx from 'clsx';
-import Profile from '../profile/profile';
-import TringleIcon from './icons/tringle-icon';
-import UiDevider from '../ui/ui-devider';
+import { Profile } from '../profile';
+import {TringleIcon} from './icons/tringle-icon';
+import { UiDevider } from '../ui';
 
-export default function GameInfo({ className }) {
+export function GameInfo({ className }) {
   return (
     <div
       className={clsx(className + ' rounded-2xl bg-white shadow-md px-8 py-4 items-center flex-col')}

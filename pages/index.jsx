@@ -1,8 +1,6 @@
-import clsx from 'clsx';
-import Header from '../components/header/header';
-import GameTitle from '../components/game/game-title';
-import GameInfo from '../components/game/game-info';
-import GameField from '../components/game/game-field';
+import { GameField, GameInfo, GameTitle } from "../components/game";
+import { Header } from "../components/header";
+
 
 export default function HomePage() {
   return (

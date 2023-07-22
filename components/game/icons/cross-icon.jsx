@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import React from 'react';
 
-export default function CrossIcon({ className }) {
+export function CrossIcon({ className }) {
   return (
     <svg
       width="12"

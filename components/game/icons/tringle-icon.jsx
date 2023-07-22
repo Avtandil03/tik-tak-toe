@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-export default function TringleIcon({ className }) {
+export function TringleIcon({ className }) {
   return (
     <svg
       width="12"

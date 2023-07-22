@@ -5,7 +5,7 @@ import clsx from 'clsx';
  * @returns jsx
  */
 
-export default function UiButton({
+export function UiButton({
   className,
   children,
   size,

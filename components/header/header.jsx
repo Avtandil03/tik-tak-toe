@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import logoSrc from './icons/logo.svg';
-import Profile from '../profile/profile';
-import ArrowDownIcon from './icons/arrow-down-icon';
-import UiDevider from '../ui/ui-devider';
-import UiButton from '../ui/ui-button';
-export default function Header() {
+import { Profile } from '../profile';
+import {ArrowDownIcon} from './icons/arrow-down-icon'
+import { UiDevider } from '../ui';
+import { UiButton } from '../ui';
+export function Header() {
   return (
     <header className="flex items-center h-24 px-8 bg-white shadow-md">
       <Image src={logoSrc} alt="logo.svg" />

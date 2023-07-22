@@ -1,6 +1,6 @@
 import clsx from "clsx";
 
-export default function ArrowDownIcon({className}) {
+export function ArrowDownIcon({className}) {
   return (
     <svg
       width="18"
