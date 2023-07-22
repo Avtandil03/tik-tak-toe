@@ -1,14 +1,13 @@
 import Image from 'next/image';
-import avatarSrc from './icons/avatar.png'
+import defaultAvatarSrc from './icons/default-avatar.svg'
 
-
-export function Profile() {
+export function Profile({name, rating, avatar}) {
   return (
     <div className="flex items-center text-start ">
-      <Image className="w-12 h-12" src={avatarSrc} alt="avatar.png" />
-      <div className='ml-2'>
-        <p className="text-lg">Paromovevg</p>
-        <p className="text-slate-400 text-xs">Рейтинг: {1230}</p>
+      <Image className="w-12 h-12" width={500} height={500} src={avatar??defaultAvatarSrc} alt="avatar.png" />
+      <div className='ml-2 overflow-hidden'>
+        <p className="text-lg truncate">{name}</p>
+        <p className="text-slate-400 text-xs">Рейтинг: {rating}</p>
       </div>
     </div>
   );
