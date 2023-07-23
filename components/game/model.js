@@ -37,6 +37,12 @@ export function computeWinner(cells, sequenceSize = 5, fieldSize = 19){
       res[3].push(i-fieldSize*(gap-j))
     }
 
+    const x = i % fieldSize 
+    if(x < gap || x >= fieldSize - gap){
+      res.shift()
+      res.shift()
+      res.shift()
+    }
     return res
   }
 
