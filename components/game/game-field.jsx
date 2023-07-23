@@ -5,7 +5,14 @@ import { GameSymbol } from './game-symbol'
 
 
 
-export function GameField({className, cells, currMove, nextMove, handleCellClick, winnerSequence}) {
+export function GameField({
+  className, 
+  cells, 
+  currMove, 
+  nextMove, 
+  handleCellClick, 
+  winnerSequence, 
+  winnerSymbol}) {
 
 
   const actions = (
@@ -26,6 +33,7 @@ export function GameField({className, cells, currMove, nextMove, handleCellClick
             <GameCell 
               key={index} 
               onClick={() => handleCellClick(index)} 
+              disabled={!!winnerSymbol}
               isWinner={winnerSequence?.includes(index)}
             >
               {cell && <GameSymbol symbol={cell} className='w-5 h-5' />}
@@ -69,9 +77,16 @@ function GameGrid({className, children}) {
   )
 }
 
-function GameCell({children, onClick, isWinner }){
+function GameCell({children, onClick, isWinner, disabled }){
  return (
-    <button onClick={onClick} className={clsx( isWinner && 'bg-orange-600/10','border-b border-r border-slate-200 flex items-center justify-center hover:shadow-inner shadow-teal-600')}>
+    <button 
+      disabled={disabled} 
+      onClick={onClick} 
+      className={
+        clsx( 
+          isWinner && 'bg-orange-600/10',
+          !disabled && 'hover:shadow-inner shadow-teal-600',
+          'border-b border-r border-slate-200 flex items-center justify-center ')}>
       {children}
     </button>
   )

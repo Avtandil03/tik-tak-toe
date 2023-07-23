@@ -1,9 +1,13 @@
 import { MOVE_ORDER } from "./constants"
 
-export function getNextMove(currMove, playersCount) {
+export function getNextMove(currMove, playersCount, playersTimeOver) {
   const slicedMoveOrders = MOVE_ORDER.slice(0,playersCount)
-  const currIndex = MOVE_ORDER.indexOf(currMove)
-  return slicedMoveOrders[currIndex+1] ?? MOVE_ORDER[0]
+  const filteredFromPlayersTimeOver = slicedMoveOrders.filter(symbol => {
+    console.log(playersTimeOver)
+    return !playersTimeOver.includes(symbol)
+  })
+  const currIndex = filteredFromPlayersTimeOver.indexOf(currMove)
+  return filteredFromPlayersTimeOver[currIndex+1] ?? filteredFromPlayersTimeOver[0]
 } 
 
 export function computeWinner(cells, sequenceSize = 5, fieldSize = 19){

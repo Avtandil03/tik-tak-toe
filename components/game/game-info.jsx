@@ -16,7 +16,7 @@ const players = [
   {id: 4,name: 'valentinashevchenko', rating: 545, avatar:ava4 , symbol: GAME_SYMBOLS.SQUARE},
 ]          
                 
-export function GameInfo({ className, playersCount, currMove }) {
+export function GameInfo({ className, playersCount, currMove, isWinner, onPlayerTimeOver }) {
   return (
     <div
       className={clsx(className + ' rounded-2xl bg-white shadow-md px-8 py-4 items-center grid grid-cols-2 gap-3')}
@@ -27,14 +27,15 @@ export function GameInfo({ className, playersCount, currMove }) {
           key={player.id} 
           playerInfo={player} 
           isRigth={i % 2 === 1} 
-          isTimerRunning={currMove === player.symbol}
+          isTimerRunning={currMove === player.symbol && !isWinner}
+          onTimeOver={() => onPlayerTimeOver(player.symbol)}
         />
       ))}
     </div>
   );
 }
 
-function PlayerInfo({playerInfo, isRigth, isTimerRunning}) {
+function PlayerInfo({playerInfo, isRigth, isTimerRunning, onTimeOver}) {
 
   const [seconds, setSeconds] = useState(15)
   const secondsString = String(seconds % 60).padStart(2, '0')
@@ -54,6 +55,15 @@ function PlayerInfo({playerInfo, isRigth, isTimerRunning}) {
     }
 
   }, [isTimerRunning])
+
+  useEffect(() => {
+    
+    if(seconds <= 0){
+      onTimeOver()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seconds])
+  
   
 
   const {name, rating, avatar, symbol} = playerInfo
@@ -74,7 +84,15 @@ function PlayerInfo({playerInfo, isRigth, isTimerRunning}) {
         <Profile name={name} avatar={avatar} rating={rating}/>
       </div>
       <UiDevider className="mx-3 order-2" />
-      <div className={clsx(isRigth ? 'order-1': 'order-3', getTimerColor(), 'text-lg font-semibold w-14')} >{minutesString}:{secondsString}</div>
+      <div 
+        className={
+          clsx(
+            isRigth ? 'order-1': 'order-3', 
+            getTimerColor(), 
+            'text-lg font-semibold w-14'
+          )
+        } 
+      >{minutesString}:{secondsString}</div>
     </div>
   )
 }
