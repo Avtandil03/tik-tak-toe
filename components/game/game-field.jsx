@@ -5,7 +5,7 @@ import { GameSymbol } from './game-symbol'
 
 
 
-export function GameField({className, cells, currMove, nextMove, handleCellClick}) {
+export function GameField({className, cells, currMove, nextMove, handleCellClick, winnerSequence}) {
 
 
   const actions = (
@@ -22,9 +22,15 @@ export function GameField({className, cells, currMove, nextMove, handleCellClick
 
       <GameGrid className='mt-3'>
         {cells.map((cell, index) => {
-          return <GameCell key={index} onClick={() => handleCellClick(index)}>
-            {cell && <GameSymbol symbol={cell} className='w-5 h-5'/>}
-          </GameCell>
+          return (
+            <GameCell 
+              key={index} 
+              onClick={() => handleCellClick(index)} 
+              isWinner={winnerSequence?.includes(index)}
+            >
+              {cell && <GameSymbol symbol={cell} className='w-5 h-5' />}
+            </GameCell>
+          )
         
         })}
       </GameGrid>
@@ -63,9 +69,9 @@ function GameGrid({className, children}) {
   )
 }
 
-function GameCell({children, onClick, }){
+function GameCell({children, onClick, isWinner }){
  return (
-    <button onClick={onClick} className='border-b border-r border-slate-200 flex items-center justify-center hover:shadow-inner shadow-teal-600'>
+    <button onClick={onClick} className={clsx( isWinner && 'bg-orange-600/10','border-b border-r border-slate-200 flex items-center justify-center hover:shadow-inner shadow-teal-600')}>
       {children}
     </button>
   )

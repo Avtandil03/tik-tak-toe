@@ -7,7 +7,7 @@ export default function HomePage() {
   
   const [playersCount] = useState(4)
   const [gameState] = useGameState(playersCount)
-  const {cells, currMove, nextMove, handleCellClick} = gameState
+  const {cells, currMove, nextMove, handleCellClick, winnerSequence} = gameState
 
 
   return (
