@@ -2,6 +2,7 @@ import { useState } from "react";
 import { GameField, GameInfo, GameSymbol, GameTitle, useGameState } from "../components/game";
 import { Header } from "../components/header";
 import { GAME_SYMBOLS } from "../components/game/constants";
+import { UIModal, UiButton } from "../components/ui";
 
 
 export default function HomePage() {
@@ -24,6 +25,16 @@ export default function HomePage() {
         onPlayerTimeOver={handlePlayerTimeOver}
       />
       {winnerSymbol && <div><GameSymbol symbol={winnerSymbol}/></div>}
+      <UIModal width='md' isOpen={!!winnerSymbol} onClose={() => console.log('close')}>
+        <UIModal.Header>Игра завершена</UIModal.Header>
+        <UIModal.Body>
+          <div className='text-2xl'>sdj;sljdfsj</div>
+        </UIModal.Body>
+        <UIModal.Footer>
+          <UiButton variant='overlay' size='md'>Вернуться</UiButton>
+          <UiButton variant='primary' size='md'>Играть снова</UiButton>
+        </UIModal.Footer>
+      </UIModal>
       <GameField className={'mt-5'} {...gameState} />
     </main>
   </div>
