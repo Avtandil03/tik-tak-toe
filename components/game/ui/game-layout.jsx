@@ -1,5 +1,3 @@
-import { GameOverModal } from "./game-over-modal";
-
 export function GameLayout({
   backLink,
   title,
@@ -7,8 +5,7 @@ export function GameLayout({
   playersList,
   gameMoveInfo,
   action,
-  gameCells,
-  winnerName
+  gameCells
 }) {
   return (
     <>
@@ -39,7 +36,6 @@ export function GameLayout({
           </div>
         </div>
       </div>
-      <GameOverModal playersList={playersList} winnerName={winnerName}/>
     </>
   );
 }

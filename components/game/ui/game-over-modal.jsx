@@ -1,6 +1,7 @@
 import { UIModal, UiButton } from '../../ui';
 
 export function GameOverModal({ winnerName, playersList }) {
+
   return (
     <UIModal
       width="md"

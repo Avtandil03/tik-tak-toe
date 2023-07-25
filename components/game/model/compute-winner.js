@@ -1,4 +1,6 @@
-export function computeWinner(cells, sequenceSize = 5, fieldSize = 19) {
+export function computeWinner(gameState, sequenceSize = 5, fieldSize = 19) {
+
+  const {cells} = gameState
 
   function compareElements(indexes) {
     let res = true;
