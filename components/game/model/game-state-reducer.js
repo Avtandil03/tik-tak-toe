@@ -3,7 +3,8 @@ import { getNextMove } from './get-next-move';
 
 
 export const GAME_STATE_ACTIONS = {
-  CELL_CLICK: 'CELL_CLICK'
+  CELL_CLICK: 'CELL_CLICK',
+  TICK: 'TICK'
 };
 
 export const initialState = ({ playersCount, defaultTimer, currMoveStart }) => ({
@@ -31,11 +32,19 @@ export const gameStateReducer = (state, action) => {
       
       return ({
         ...state,
-        currMove: getNextMove(state, []),
+        currMove: getNextMove(state),
         currMoveStart: now,
         cells: updateCell(state, index),
         timers: updateTimers(state, now, index)
       });
+    case GAME_STATE_ACTIONS.TICK: 
+      if(!isTimeOver(state, now)) return state
+      return({
+        ...state,
+        currMove: getNextMove(state),
+        currMoveStart: now,
+        timers: updateTimers(state, now, index)
+      })
 
     default:
       return state;
@@ -56,4 +65,10 @@ function updateTimers(gameState, now){
     ...gameState.timers, 
     [gameState.currMove]: timer - diff
   }
+}
+
+function isTimeOver(state, now){
+  const timer = updateTimers(state, now)[state.currMove]
+
+  return timer <= 0
 }

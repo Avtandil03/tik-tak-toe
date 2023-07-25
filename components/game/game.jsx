@@ -17,6 +17,7 @@ import { useReducer } from 'react';
 import { computeWinner } from './model/compute-winner';
 import { GameOverModal } from './ui/game-over-modal';
 import { computePlayerTimer } from './model/compute-player-timer';
+import { useInterval } from '../lib/timers';
 
 const PLAYERS_COUNT = 4;
 
@@ -38,6 +39,14 @@ export function Game() {
   const winnerPlayer = PLAYERS.find(
     (player) => player.symbol === winnerSymbol,
   );
+
+  useInterval(1000, gameState.currMoveStart, () => {
+    if(winnerSymbol) return
+    dispatch({
+      type: GAME_STATE_ACTIONS.TICK,
+      now: Date.now(),
+    })
+  })
 
   return (
     <>
@@ -91,7 +100,7 @@ export function Game() {
         winnerName={winnerPlayer?.name}
         playersList={PLAYERS.slice(0, PLAYERS_COUNT).map((player, index) => {
 
-          const {timer, timerStartAt} = computePlayerTimer(gameState, player.symbol)
+          const {timer} = computePlayerTimer(gameState, player.symbol)
 
           return <PlayerInfo
             key={player.id}
@@ -101,7 +110,6 @@ export function Game() {
             avatar={player.avatar}
             isRigth={index % 2 === 1}
             timer={timer}
-            timerStartAt={timerStartAt}
           />
         })}
       />
