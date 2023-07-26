@@ -22,7 +22,6 @@ export function useNow(interval, enabled) {
 }
 
 export function useInterval(interval, enabled, cb){
-
   useEffect(() => {
     if(!enabled){
       return
@@ -31,10 +30,7 @@ export function useInterval(interval, enabled, cb){
       cb()
     }, interval);
 
-    return () => {
-      clearInterval(int)
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[interval, enabled])
+    return () => clearInterval(int)
+  },[interval, enabled, cb])
 
 }

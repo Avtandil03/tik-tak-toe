@@ -18,18 +18,18 @@ import { computeWinner } from './model/compute-winner';
 import { GameOverModal } from './ui/game-over-modal';
 import { computePlayerTimer } from './model/compute-player-timer';
 import { useInterval } from '../lib/timers';
+import {useMemo, useCallback} from 'react'
 
 const PLAYERS_COUNT = 4;
 
 export function Game() {
   const [gameState, dispatch] = useReducer(
     gameStateReducer,
-    { playersCount: PLAYERS_COUNT, currMoveStart: Date.now(), defaultTimer: 6000 },
+    { playersCount: PLAYERS_COUNT, currMoveStart: Date.now(), defaultTimer: 60000 },
     initialState,
   );
   const { cells, currMove, currMoveStart, timers } = gameState;
-
-  const winnerSequence = computeWinner(gameState);
+  const winnerSequence = useMemo(() => computeWinner(gameState), [gameState]);
   const nextMove = getNextMove(gameState);
   const winnerSymbol = computeWinnerSymbol(gameState, {
     winnerSequence,
@@ -41,12 +41,19 @@ export function Game() {
   );
 
   useInterval(1000, gameState.currMoveStart, () => {
-    if(winnerSymbol) return
     dispatch({
       type: GAME_STATE_ACTIONS.TICK,
       now: Date.now(),
     })
   })
+
+  const handleCellClick = useCallback((index) => {
+    dispatch({
+      type: GAME_STATE_ACTIONS.CELL_CLICK,
+      index,
+      now: Date.now()
+    });
+  }, [])
 
   return (
     <>
@@ -73,7 +80,7 @@ export function Game() {
             avatar={player.avatar}
             isRigth={index % 2 === 1}
             timer={timer}
-            timerStartAt={timerStartAt}
+            timerStartAt={!winnerSymbol && timerStartAt}
           />
         })}
         gameMoveInfo={<GameMoveInfo currMove={currMove} nextMove={nextMove} />}
@@ -81,13 +88,8 @@ export function Game() {
           return (
             <GameCell
               key={index}
-              onClick={() => {
-                dispatch({
-                  type: GAME_STATE_ACTIONS.CELL_CLICK,
-                  index,
-                  now: Date.now()
-                });
-              }}
+              index={index}
+              onClick={handleCellClick}
               disabled={!!winnerSymbol}
               isWinner={winnerSequence?.includes(index)}
               symbol={cell}
